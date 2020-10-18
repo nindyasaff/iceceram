@@ -25,7 +25,7 @@ public class Attack : MonoBehaviour
         
         if (hitObject)
         {
-            if (hitObject.collider.gameObject.CompareTag("Bear"))
+            if (hitObject.collider.gameObject.CompareTag("Bear") && GameManager.instance.onClick == false)
             {
                 Bear bear = hitObject.collider.gameObject.GetComponent<Bear>();
 
@@ -34,8 +34,6 @@ public class Attack : MonoBehaviour
                 bulletLine.SetPosition(0, bulletPoint.position);
                 bulletLine.SetPosition(1, hitObject.point);
             }
-
-            
         }
         else
         {
