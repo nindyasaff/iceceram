@@ -3,20 +3,26 @@ using UnityEngine.UI;
 
 public class Bear : MonoBehaviour
 {
-    public int health;
+    [SerializeField] 
+    private HealthBar healthBar;
+    Health bearHealth;
 
-    public Slider sliderHealth;
+    public int healthValue = 90;
+
+    private SpriteRenderer spriteFill;
 
     void Start()
     {
-        sliderHealth.maxValue = health;
+        spriteFill = transform.Find("HealthBar").Find("Fill").Find("SpriteFill").GetComponent<SpriteRenderer>();
+        bearHealth = new Health(healthValue, spriteFill);
+        healthBar.Setup(bearHealth);
     }
 
     void Update()
     {
-        sliderHealth.value = health;
+        bearHealth.GetColor();
 
-        if(health <= 0)
+        if(bearHealth.GetHealthPercentage() <= 0)
         {
             Destroy(gameObject);
         }
@@ -24,6 +30,6 @@ public class Bear : MonoBehaviour
 
     public void GetDamage(int damage)
     {
-        health -= damage;
+        bearHealth.GetDamage(damage);
     }
 }

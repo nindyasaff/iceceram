@@ -11,8 +11,25 @@ public class Attack : MonoBehaviour
     public LineRenderer bulletLine;
     RaycastHit2D hitObject;
 
+    [SerializeField]
+    private HealthBar healthBar;
+    Health playerHealth;
+
+    public int healthValue = 90;
+
+    private SpriteRenderer spriteFill;
+
+    void Start()
+    {
+        spriteFill = transform.Find("HealthBar").Find("Fill").Find("SpriteFill").GetComponent<SpriteRenderer>();
+        playerHealth = new Health(healthValue, spriteFill);
+        healthBar.Setup(playerHealth);
+    }
+
     void Update()
     {
+        playerHealth.GetColor();
+
         if (Input.GetMouseButtonDown(0))
         {
             StartCoroutine(Shoot());
