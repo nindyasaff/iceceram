@@ -14,11 +14,15 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        float horiz = Input.GetAxisRaw("Horizontal"); // a,d , kiri kanan
-        RB.velocity = new Vector2(ms * horiz, RB.velocity.y);
-        if (Input.GetButtonDown("Jump"))
+        if(GameManager.instance.isPlaying == true)
         {
-            RB.AddForce(new Vector2(0, jf));
+            float horiz = Input.GetAxisRaw("Horizontal"); // a,d , kiri kanan
+            RB.velocity = new Vector2(ms * horiz, RB.velocity.y);
+            if (Input.GetButtonDown("Jump"))
+            {
+                RB.AddForce(new Vector2(0, jf));
+            }
         }
+        
     }
 }

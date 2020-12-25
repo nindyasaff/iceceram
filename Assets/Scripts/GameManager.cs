@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private int coin = 500;
     private int diamond = 500;
     public bool onClick = false;
-    private string nameItem;
+    public bool isPlaying;
 
     public Text coinText;
     public Text diamondText;
@@ -20,15 +20,15 @@ public class GameManager : MonoBehaviour
 
     public Image shopPanel;
 
+    public Image gameOverPanel;
+    public Image winPanel;
+
     void Start()
     {
-        if(instance != null)
-        {
-            instance = null;
-        }
-        else
+        if(instance == null)
         {
             instance = this;
+            isPlaying = true;
         }
     }
 
@@ -42,11 +42,11 @@ public class GameManager : MonoBehaviour
 
         if (onClick)
         {
-            Time.timeScale = 0;
+            GamePause();
         }
         else
         {
-            Time.timeScale = 1;
+            GamePlay();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -68,6 +68,11 @@ public class GameManager : MonoBehaviour
         {
             coin -= 250;
         }
+
+        if(coin <= 0)
+        {
+            coin = 0;
+        }
     }
 
     public void ShopBtn()
@@ -80,5 +85,27 @@ public class GameManager : MonoBehaviour
     {
         onClick = false;
         shopPanel.gameObject.SetActive(false);
+    }
+
+    public void GameOver()
+    {
+        gameOverPanel.gameObject.SetActive(true);
+        isPlaying = false;
+    }
+
+    public void Win()
+    {
+        winPanel.gameObject.SetActive(true);
+        isPlaying = false;
+    }
+
+    void GamePause()
+    {
+        Time.timeScale = 0;
+    }
+
+    void GamePlay()
+    {
+        Time.timeScale = 1;
     }
 }

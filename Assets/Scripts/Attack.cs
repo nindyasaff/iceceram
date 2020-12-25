@@ -13,9 +13,9 @@ public class Attack : MonoBehaviour
 
     [SerializeField]
     private HealthBar healthBar;
-    Health playerHealth;
+    public Health playerHealth;
 
-    public int healthValue = 90;
+    public int healthValue;
 
     private SpriteRenderer spriteFill;
 
@@ -28,11 +28,19 @@ public class Attack : MonoBehaviour
 
     void Update()
     {
-        playerHealth.GetColor();
-
-        if (Input.GetMouseButtonDown(0))
+        if(GameManager.instance.isPlaying == true)
         {
-            StartCoroutine(Shoot());
+            playerHealth.GetColor();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                StartCoroutine(Shoot());
+            }
+
+            if (playerHealth.GetHealthPercentage() <= 0)
+            {
+                GameManager.instance.GameOver();
+            }
         }
     }
 
