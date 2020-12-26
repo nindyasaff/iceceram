@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bear
+  - Coin
+  - Diamond
   layers:
   - Default
   - TransparentFX

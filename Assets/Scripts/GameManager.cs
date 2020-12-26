@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    private int coin = 500;
-    private int diamond = 500;
+    public int coin;
+    public int diamond;
     public bool onClick = false;
     public bool isPlaying;
 
