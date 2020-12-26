@@ -7,8 +7,6 @@ public class Bear : MonoBehaviour
     public int damage;
     public float distance;
 
-    public Transform bulletPoint;
-
     public LineRenderer bulletLine;
     RaycastHit2D hitObject;
 
@@ -57,7 +55,7 @@ public class Bear : MonoBehaviour
     IEnumerator Shoot()
     {
         
-        hitObject = Physics2D.Raycast(bulletPoint.position, bulletPoint.right * -1, distance);
+        hitObject = Physics2D.Raycast(bulletLine.transform.position, bulletLine.transform.right * -1, distance);
 
         if (hitObject)
         {
@@ -67,14 +65,14 @@ public class Bear : MonoBehaviour
 
                 player.playerHealth.GetDamage(damage);
 
-                bulletLine.SetPosition(0, bulletPoint.position);
+                bulletLine.SetPosition(0, bulletLine.transform.position);
                 bulletLine.SetPosition(1, hitObject.point);
             }
         }
         else
         {
-            bulletLine.SetPosition(0, bulletPoint.position);
-            bulletLine.SetPosition(1, bulletPoint.position + bulletPoint.right * -1 * distance);
+            bulletLine.SetPosition(0, bulletLine.transform.position);
+            bulletLine.SetPosition(1, bulletLine.transform.position + bulletLine.transform.right * -1 * distance);
         }
 
         bulletLine.enabled = true;

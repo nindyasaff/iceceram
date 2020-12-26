@@ -6,8 +6,6 @@ public class Attack : MonoBehaviour
     public int damage;
     public float distance;
 
-    public Transform bulletPoint;
-
     public LineRenderer bulletLine;
     RaycastHit2D hitObject;
 
@@ -46,7 +44,7 @@ public class Attack : MonoBehaviour
 
     IEnumerator Shoot()
     {
-        hitObject = Physics2D.Raycast(bulletPoint.position, bulletPoint.right, distance);
+        hitObject = Physics2D.Raycast(bulletLine.transform.position, bulletLine.transform.right, distance);
         
         if (hitObject)
         {
@@ -56,14 +54,14 @@ public class Attack : MonoBehaviour
 
                 bear.GetDamage(damage);
 
-                bulletLine.SetPosition(0, bulletPoint.position);
+                bulletLine.SetPosition(0, bulletLine.transform.position);
                 bulletLine.SetPosition(1, hitObject.point);
             }
         }
         else
         {
-            bulletLine.SetPosition(0, bulletPoint.position);
-            bulletLine.SetPosition(1, bulletPoint.position + bulletPoint.right * distance);
+            bulletLine.SetPosition(0, bulletLine.transform.position);
+            bulletLine.SetPosition(1, bulletLine.transform.position + bulletLine.transform.right * distance);
         }
 
         bulletLine.enabled = true;
