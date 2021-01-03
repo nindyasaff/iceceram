@@ -7,22 +7,37 @@ public class Movement : MonoBehaviour
     Rigidbody2D RB;
     public float ms = 10f;
     public float jf;
+    private bool isJump = false;
+    float horiz;
     void Start()
     {
         RB = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    public void Jump()
     {
-        if(GameManager.instance.isPlaying == true)
+        if (!isJump)
         {
-            float horiz = Input.GetAxisRaw("Horizontal"); // a,d , kiri kanan
-            RB.velocity = new Vector2(ms * horiz, RB.velocity.y);
-            if (Input.GetButtonDown("Jump"))
-            {
-                RB.AddForce(new Vector2(0, jf));
-            }
+            RB.AddForce(new Vector2(0, jf));
+            isJump = true;
         }
-        
+    }
+
+    public void MovementLeft()
+    {
+        RB.velocity = new Vector2(ms * 1, RB.velocity.y);
+    }
+
+    public void MovementRight()
+    {
+        RB.velocity = new Vector2(ms * -1, RB.velocity.y);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isJump = false;
+        }
     }
 }

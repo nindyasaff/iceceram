@@ -30,16 +30,16 @@ public class Attack : MonoBehaviour
         {
             playerHealth.GetColor();
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                StartCoroutine(Shoot());
-            }
-
             if (playerHealth.GetHealthPercentage() <= 0)
             {
                 GameManager.instance.GameOver();
             }
         }
+    }
+
+    public void ShootBtn()
+    {
+        StartCoroutine(Shoot());
     }
 
     IEnumerator Shoot()
